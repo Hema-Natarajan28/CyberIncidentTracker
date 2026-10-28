@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberIncidentTracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside>
+        <h2>CyberIncidentTracker</h2>
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('report_incident') }}">Report Incident</a>
+            <a href="{{ url_for('incident_list') }}">Incident List</a>
+            <a href="{{ url_for('investigation_history') }}">Investigation History</a>
+            <a href="{{ url_for('settings') }}">Settings</a>
+        </nav>
+    </aside>
+
+    <main>
+        <h1>Security Operations Dashboard</h1>
+        <p>Monitor and manage reported security incidents.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="message {{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="stats">
+            <article><h3>Total Incidents</h3><p>{{ total }}</p></article>
+            <article><h3>Open</h3><p>{{ open_count }}</p></article>
+            <article><h3>Critical Unresolved</h3><p>{{ critical_count }}</p></article>
+            <article><h3>Resolved</h3><p>{{ resolved_count }}</p></article>
+        </section>
+
+        <h2>Recent Incidents</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Severity</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for incident in incidents %}
+                    <tr>
+                        <td>#{{ incident.id }}</td>
+                        <td>{{ incident.title }}</td>
+                        <td>{{ incident.category }}</td>
+                        <td>{{ incident.severity }}</td>
+                        <td>{{ incident.status }}</td>
+                        <td>
+                            <a href="{{ url_for('incident_details', incident_id=incident.id) }}">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6">No incidents reported yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

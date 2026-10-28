@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigation History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside>
+        <h2>CyberIncidentTracker</h2>
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('report_incident') }}">Report Incident</a>
+            <a href="{{ url_for('incident_list') }}">Incident List</a>
+            <a href="{{ url_for('investigation_history') }}">Investigation History</a>
+            <a href="{{ url_for('settings') }}">Settings</a>
+        </nav>
+    </aside>
+    <main>
+        <h1>Investigation History</h1>
+        {% for item in history %}
+            <section class="panel">
+                <h3>{{ item.action }}</h3>
+                <p><strong>Incident:</strong>
+                    <a href="{{ url_for('incident_details', incident_id=item.incident_id) }}">
+                        #{{ item.incident_id }} — {{ item.incident_title }}
+                    </a>
+                </p>
+                <p>{{ item.notes }}</p>
+                <small>{{ item.created_at }}</small>
+            </section>
+        {% else %}
+            <p>No investigation activity recorded yet.</p>
+        {% endfor %}
+    </main>
+</body>
+</html>

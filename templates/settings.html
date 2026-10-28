@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside>
+        <h2>CyberIncidentTracker</h2>
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('report_incident') }}">Report Incident</a>
+            <a href="{{ url_for('incident_list') }}">Incident List</a>
+            <a href="{{ url_for('investigation_history') }}">Investigation History</a>
+            <a href="{{ url_for('settings') }}">Settings</a>
+        </nav>
+    </aside>
+    <main>
+        <h1>Settings</h1>
+        <section class="panel">
+            <h2>Application Information</h2>
+            <p>CyberIncidentTracker — Security Incident Management</p>
+            <p>Theme: Black and Violet</p>
+            <p>This starter version uses a local SQLite database.</p>
+        </section>
+    </main>
+</body>
+</html>

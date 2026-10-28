@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Incident</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside>
+        <h2>CyberIncidentTracker</h2>
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('report_incident') }}">Report Incident</a>
+            <a href="{{ url_for('incident_list') }}">Incident List</a>
+            <a href="{{ url_for('investigation_history') }}">Investigation History</a>
+            <a href="{{ url_for('settings') }}">Settings</a>
+        </nav>
+    </aside>
+
+    <main>
+        <h1>Report a Security Incident</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="message {{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('report_incident') }}">
+            <label for="title">Incident Title</label>
+            <input id="title" name="title" required>
+
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option>Phishing</option>
+                <option>Malware</option>
+                <option>Suspicious Login</option>
+                <option>Data Breach</option>
+                <option>Denial of Service</option>
+                <option>Other</option>
+            </select>
+
+            <label for="description">Incident Description</label>
+            <textarea id="description" name="description" rows="5" required></textarea>
+
+            <label for="severity">Severity</label>
+            <select id="severity" name="severity" required>
+                <option value="">Select severity</option>
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+                <option>Critical</option>
+            </select>
+
+            <label for="reporter">Reported By</label>
+            <input id="reporter" name="reporter" required>
+
+            <button type="submit">Submit Incident</button>
+        </form>
+    </main>
+</body>
+</html>
